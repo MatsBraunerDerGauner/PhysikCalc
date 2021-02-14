@@ -1,47 +1,65 @@
 #include"Include/ui.h"
 
-#ifdef __unix__
-#define CLEAR system("clear")
-#else
-#define CLEAR system("cls")
-#endif
-
-enum { down = 'n', up = 'r', enter = ' ' } key;
-
-void drawFormeln() {
+static void drawRechnen(void) {
     CLEAR;
-    printf("Test");
-    int key = getchar();
+    printf("RechnenPage");
+    getch();
 }
 
-void drawMenu() {
+static void drawFormeln() {
+    CLEAR;
+    printf("FormelnPage");
+    getch();
+}
+
+void drawMenu(void) {
+    // The position of the Curser « ⇒ »
     int curserPos = 0;
+    // Max fo menu points
+    const int CURSER_POS_MAX = 3;
 
     while (1) {
         CLEAR;
         char *curser = "⇒";
         printf("\r------------\n\
-                \r|   Menu   |\n\
+                \r| - Menu - |\n\
                 \r------------\n\
+                \r|%s Rechnen |\n\
+                \r-------------\n\
                 \r|%s Formeln |\n\
                 \r------------\n\
                 \r|%s Exit    |\n\
                 \r------------\n",
                 (curserPos == 0) ?curser :" ",
-                (curserPos == 1) ?curser :" ");
-        char key;
-        scanf("%c", &key);
+                (curserPos == 1) ?curser :" ",
+                (curserPos == 2) ?curser :" ");
 
-        switch (key) {
-            case down: curserPos++; break;
-            case up: curserPos--; break;
-            
-            default:
-                switch (curserPos) {
-                    case 0: drawFormeln(); break;
-                    //case 1: exit(0); break;
-                }
-                break;
+        // Key abfrage
+        int c;
+        do {
+            c = getch();
+        } while (c != down && c != up && c != enter);
+        
+        // Key pressed processing
+        if (c == down) {
+            if (curserPos != CURSER_POS_MAX - 1) 
+                curserPos++;
+            continue; 
+        }
+
+        if (c == up) { 
+            if (curserPos != 0) 
+                curserPos--; 
+            continue;
+        }
+
+        if (c == enter) {
+            switch (curserPos) {
+                case 0: drawRechnen(); break;
+                case 1: drawFormeln(); break;
+                case 2: exit(EXIT_FAILURE); break;
+                default: break;
+            }
         }
     }
 }

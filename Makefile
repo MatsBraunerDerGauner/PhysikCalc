@@ -4,7 +4,7 @@ HEADERS = $(wildcard Include/*.h)
 OBJECTS = $(addsuffix .o, $(basename $(filter-out %Main.c, $(wildcard *.c))))
 LIBRARIES =
 
-.PRECIOUS: %.o
+.PRECIOUS: %.o 
 .SUFFIXES:
 
 all: compile
