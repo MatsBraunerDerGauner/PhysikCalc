@@ -4,6 +4,7 @@
 // Headers from standard lib
 #include<stdio.h>
 #include<stdlib.h>
+#include<stdarg.h>
 
 // Header for KeyEvents
 #include"keyEvent.h"

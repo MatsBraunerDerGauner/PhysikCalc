@@ -4,6 +4,8 @@
 #include<stdlib.h>
 #include<stdio.h>
 
+static int cbreak(int fd);
+
 extern int getch(void);
 
 #endif

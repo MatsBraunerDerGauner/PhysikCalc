@@ -7,7 +7,7 @@
 static struct termios new_io;
 static struct termios old_io;
 
-int cbreak(int fd) {
+static int cbreak(int fd) {
     if ((tcgetattr(fd, &old_io)) == -1)
         return -1;
     new_io = old_io;
