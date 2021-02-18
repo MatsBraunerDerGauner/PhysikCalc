@@ -2,51 +2,50 @@
 #define UI_H
 
 // Headers from standard lib
-#include<stdio.h>
-#include<stdlib.h>
-#include<stdarg.h>
+#include<string.h>
 
 // Header for KeyEvents
 #include"keyEvent.h"
+// Header for sturct of page
+#include"page.h"
 
-// Konstante to clear the terminal for Win and for unix
+// things they are diffrent on unix and Win
 #ifdef __unix__
+// Curser for unix
+#define curser "⇒"
+// Enter enum for unix
+#define ENTER '\n'
+// Clear the screen for unix
 #define CLEAR system("clear")
 #else
+// Curser for win
+#define curser ">"
+// Enter enum for win
+#define ENTER 13
+// Clear the screen for win
 #define CLEAR system("cls")
 #endif
 
-// check dynamic store
-#define check(x) \
-    if (x == NULL) { \
-        printf("dynamic store faild in line %d", __LINE__); \
-        exit(EXIT_FAILURE); \
-    }
-
-// char for the Curser
-#define curser "⇒"
-
-// menupoints char buffer max
-#define BUFFMAX 50
-
-// struct for page
-typedef struct page_t {
-    int menuPointCount;
-    char *title;
-    char **menuPoints;
-    struct page_t *pre;
-    struct page_t *next;
-} page_t;
-
-extern page_t *pageList;
-
-static page_t *createPage_t(int menuPointCount, ...);
-
 // Keys for the movement in the menu
-extern enum { down = 'n', up = 'r', enter = '\n' } key;
+extern enum { down = 'n', up = 'r', enter = ENTER } key;
 
-// Build's the Page about the page
-static page_t *drawPage(page_t *page, _Bool isMainPage);
+// width fo the ui
+#define UI_WIDTH 15
+
+// line for ui
+#define UI_LINE \
+    putchar('\r'); \
+    for (int i = 0; i < UI_WIDTH; i++) \
+        putchar('-'); \
+    putchar('\n');
+
+// End for ui menupoint
+#define UI_END(x) \
+    for (int i = 0; i < x; i++) \
+        putchar(' '); \
+    putchar('|'); \
+    putchar('\n');
+
 
 // Draw's the Menu when the Programm is Started
 void drawMenu(void);
