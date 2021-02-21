@@ -37,14 +37,12 @@ extern enum { down = 'n', up = 'r', enter = ENTER } key;
     putchar('\r'); \
     for (int i = 0; i < UI_WIDTH; i++) \
         putchar('-'); \
-    putchar('\n');
 
 // End for ui menupoint
 #define UI_END(x) \
     for (int i = 0; i < x; i++) \
         putchar(' '); \
     putchar('|'); \
-    putchar('\n');
 
 
 // Draw's the Menu when the Programm is Started
